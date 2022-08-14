@@ -1,5 +1,5 @@
 import CustomClient from "./clients/CustomClient";
-//import RconManager, {serverInfo} from "./clients/RconManager";
+import RconManager, {serverInfo} from "./clients/RconManager";
 import "reflect-metadata";
 (async () => {
     const client = new CustomClient({intents: ["Guilds", "GuildMessages"]})

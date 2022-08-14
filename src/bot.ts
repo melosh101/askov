@@ -6,7 +6,7 @@ import "reflect-metadata";
 
     client.loadConfig();
     await client.connectDataSource();
-
+    
     const rcon = RconManager.getInstance()
     client.config.servers.forEach((s: serverInfo) => {
         rcon.connectServer(s.name, s.ip, s.port, s.password);
@@ -20,5 +20,11 @@ import "reflect-metadata";
             return;
         }
         rcon.sendCommand("askov-smp", "say hello world")
-    }, 5e3)
+    }, 5e3);
+    
+    client.login(client.config.token);
+    client.on('ready', ()=>{
+        console.log('Bot logged in');
+    });
+
 })()

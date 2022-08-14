@@ -16,6 +16,9 @@
     "discord.js": "^14.2.0",
     "dotenv": "^16.0.1",
     "js-yaml": "^4.1.0",
-    "rcon-client": "^4.2.3"
+    "pg": "^8.7.3",
+    "rcon-client": "^4.2.3",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.7"
   }
 }

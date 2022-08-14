@@ -4,40 +4,44 @@ export interface serverInfo {
     ip: string;
     port: number;
     name: string;
+    password: string
     connection: Rcon;
 }
 
 export default class RconManager {
     private static instance: RconManager | null = null;
-    public conns: Map<String, {
-        ip: string,
-        port: number
-        name: string
-        connection: Rcon
-    }> = new Map();
+    public conns: Map<String, serverInfo> = new Map();
 
     private constructor() {
 
     }
 
-    public getInstance(): RconManager {
+    public static getInstance(): RconManager {
         if (RconManager.instance == null)
             RconManager.instance = new RconManager()
         return RconManager.instance;
     }
 
     public async connectServer(name: string, ip: string, port: number,  password: string): Promise<void> {
-        const conn = await Rcon.connect({
+        console.log("connecting to server")
+        const conn = new Rcon({
             host: ip,
             port,
             password: password
-        })
-        this.conns.set(name, {
-            ip,
-            name,
-            connection: conn,
-            port
-        })
+        });
+        conn.on("authenticated", () => {
+            console.log("server has connected")
+            this.conns.set(name, {
+                ip,
+                name,
+                connection: conn,
+                port,
+                password
+            });
+        });
+
+        conn.connect();
+
     }
 
     public async whitelistUser(name: String, player: string): Promise<boolean> {
@@ -50,6 +54,14 @@ export default class RconManager {
         return rep.toLowerCase().includes("added");
 
 
+    }
+
+    public async sendCommand(server: string, command: string) {
+        const con = this.conns.get(server);
+        if(!con)
+            throw new Error("rcon not connected to server");
+
+        con.connection.send(command);
     }
 
 }

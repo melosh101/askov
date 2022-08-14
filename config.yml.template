@@ -1,0 +1,23 @@
+---
+token: "token"
+devGuild: "1006287834166087741"
+isDev: true
+servers:
+  - name: askov-smp
+    ip: melosh.tk
+    port: 25575
+    password: passwd
+database:
+  type: postgres
+  host: melosh.tk
+  port: 5432
+  username: postgres
+  password: NO
+  database: "askovDev"
+  schema: "public"
+  # false in prod
+  synchronize: true
+  # good for debug
+  logging: false
+  entities:
+    - "build/entity/**/*.js"

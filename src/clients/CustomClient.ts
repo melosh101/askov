@@ -6,12 +6,13 @@ import * as yaml from "js-yaml"
 import * as path from "path";
 import {DataSource} from "typeorm"
 import {Routes} from "discord-api-types/v10";
+import Players from "../entity/players";
 
 
 export default class CustomClient extends Client {
     public static messageEvents: Collection<string, () => {}> = new Collection();
     public commands: Collection<string, SlashCommands> = new Collection();
-    public DataSource: any;
+    public db!: DataSource;
     public config!: Config;
 
     constructor(option: ClientOptions) {
@@ -19,7 +20,20 @@ export default class CustomClient extends Client {
     }
 
     public async connectDataSource(): Promise<void> {
-        this.DataSource = new DataSource(this.config.database)
+        if(!this.config) {
+            throw new Error("config not loaded")
+        }
+        this.db = new DataSource({
+            type: this.config.database.type,
+            host: this.config.database.host,
+            port: this.config.database.port,
+            username: this.config.database.username,
+            password: this.config.database.password,
+            database: this.config.database.database,
+            entities: [Players],
+            synchronize: this.config.database.synchronize,
+            logging: this.config.database.logging,
+        })
     }
 
     public loadConfig(): void {

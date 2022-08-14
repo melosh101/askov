@@ -1,13 +1,12 @@
 import CustomClient from "./clients/CustomClient";
 import RconManager, {serverInfo} from "./clients/RconManager";
 import "reflect-metadata";
-import {createConnection} from "typeorm";
 import {Interaction} from "discord.js";
 (async () => {
     const client = new CustomClient({intents: ["Guilds", "GuildMessages"]})
 
     client.loadConfig();
-    createConnection(client.config.database);
+    await client.connectDataSource()
 
     const rcon = RconManager.getInstance()
     client.config.servers.forEach((s: serverInfo) => {

@@ -1,5 +1,5 @@
 import {serverInfo} from "../clients/RconManager";
-import {DataSourceOptions} from "typeorm";
+import {PostgresConnectionOptions} from "typeorm/driver/postgres/PostgresConnectionOptions";
 
 export default interface Config {
     token: string
@@ -7,5 +7,5 @@ export default interface Config {
     clientId: string
     isDev: boolean
     servers: serverInfo[]
-    database: DataSourceOptions
+    database: PostgresConnectionOptions
 }

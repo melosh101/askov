@@ -1,5 +1,6 @@
 ---
 token: "token"
+clientId: "1008029236487016498"
 devGuild: "1006287834166087741"
 isDev: true
 servers:

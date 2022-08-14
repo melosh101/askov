@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@discordjs/rest': ^1.0.1
   '@types/js-yaml': ^4.0.5
   discord-api-types: ^0.37.2
   discord.js: ^14.2.0
@@ -12,6 +13,7 @@ specifiers:
   typeorm: ^0.3.7
 
 dependencies:
+  '@discordjs/rest': 1.0.1
   '@types/js-yaml': 4.0.5
   discord-api-types: 0.37.2
   discord.js: 14.2.0
